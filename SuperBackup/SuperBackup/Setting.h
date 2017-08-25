@@ -14,7 +14,7 @@ struct Setting
 	Setting();
 	~Setting();
 
-	void Initialize();
+	void Initialize(SettingType t, const char* v);
 	void Reset();
 	bool IsValid();
 

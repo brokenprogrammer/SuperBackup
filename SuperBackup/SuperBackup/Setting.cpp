@@ -11,14 +11,16 @@ Setting::~Setting()
 
 }
 
-void Setting::Initialize()
+void Setting::Initialize(SettingType t, const char* v)
 {
-
+	type = t;
+	value = v;
 }
 
 void Setting::Reset()
 {
-
+	type = INVALID;
+	value = nullptr;
 }
 
 bool Setting::IsValid()

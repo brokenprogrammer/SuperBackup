@@ -6,7 +6,7 @@
 
 class Settings
 {
-
+	Setting setting;
 };
 
 #endif
