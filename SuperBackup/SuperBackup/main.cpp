@@ -20,7 +20,7 @@ int main()
 
 	printf("Hello, World!");
 
-	Settings settings = SettingParser::parseSettings(CONFIG_PATH);
+	SettingParser settingParser(CONFIG_PATH);
 
 	return 0;
 }
