@@ -9,14 +9,9 @@ int main()
 	// Sit and watch directories, when save occurs, store the old file
 	// Back to watching directories.
 
-
-	// Example cfg file:
-	//SuperBackup.cfg
-	//directory = C:/my/test/app
-	//directory = C:/second/app
-	//filetype = *.c
-	//filetype = *.h
-	//filetype = *.cpp
+	//@TODO: 1. Finish parser, validLine & ParseContent.
+	//@TODO: 2. Test for existing config file.
+	//@TODO: 3. Function for extracting parsed data into Setting structures.
 
 	printf("Hello, World!");
 
