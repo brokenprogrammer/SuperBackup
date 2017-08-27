@@ -1,4 +1,7 @@
 #include "stdio.h"
+#include "SettingParser.h"
+
+#define CONFIG_PATH ""
 
 int main()
 {
@@ -16,6 +19,8 @@ int main()
 	//filetype = *.cpp
 
 	printf("Hello, World!");
+
+	Settings settings = SettingParser::parseSettings(CONFIG_PATH);
 
 	return 0;
 }

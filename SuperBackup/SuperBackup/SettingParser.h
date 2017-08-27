@@ -2,9 +2,11 @@
 #define SETTINGPARSER_H
 #pragma once
 
-class SettingParser
-{
+#include "Settings.h"
 
-};
+namespace SettingParser
+{
+	Settings parseSettings(const char* config_path);
+}
 
 #endif
