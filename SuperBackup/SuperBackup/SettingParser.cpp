@@ -1,8 +1,8 @@
 #include "SettingParser.h"
+#include "Setting.h"
 #include <fstream>
 #include <sstream>
 #include <stdexcept>
-#include <iostream>
 
 SettingParser::SettingParser(const std::string filename)
 {
@@ -70,9 +70,19 @@ void SettingParser::contentToSettings()
 	{
 		for (auto const &vec : contents[x.first])
 		{
+			Setting s;
+
 			// Check if filetype or path and create Setting.
-			// Populate Settings object.
-			// Set member Settings object to the created one.
+			if (x.first.find("dir") != std::string::npos || x.first.find("directory") != std::string::npos)
+			{
+				s.Initialize(DIRECTORY, vec.c_str());
+				settings.AddSetting(s);
+			}
+			else if (x.first.find("filetype") != std::string::npos)
+			{
+				s.Initialize(FILETYPE, vec.c_str());
+				settings.AddSetting(s);
+			}
 		}
 	}
 }

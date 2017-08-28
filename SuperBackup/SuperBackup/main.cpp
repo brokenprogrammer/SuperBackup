@@ -1,5 +1,6 @@
 #include "stdio.h"
 #include "SettingParser.h"
+#include "Settings.h"
 
 #define CONFIG_PATH "config.cfg"
 
@@ -16,6 +17,8 @@ int main()
 	printf("Hello, World!");
 
 	SettingParser settingParser(CONFIG_PATH);
+
+	Settings settingsCollection = settingParser.GetSettings();
 
 	return 0;
 }

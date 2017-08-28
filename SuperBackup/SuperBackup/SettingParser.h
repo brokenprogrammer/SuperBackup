@@ -16,6 +16,8 @@ public:
 	bool keyExists(const std::string key) const;
 	std::vector<std::string> getKey(const std::string key) const;
 
+	Settings GetSettings() const { return settings; };
+
 private:
 
 	void parseContent();
@@ -25,6 +27,7 @@ private:
 
 	std::string filename;
 	std::map<std::string, std::vector<std::string>> contents;
+	Settings settings;
 };
 
 #endif
