@@ -1,7 +1,7 @@
 #include "stdio.h"
 #include "SettingParser.h"
 
-#define CONFIG_PATH ""
+#define CONFIG_PATH "config.cfg"
 
 int main()
 {

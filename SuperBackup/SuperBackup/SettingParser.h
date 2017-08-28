@@ -19,6 +19,8 @@ public:
 private:
 
 	void parseContent();
+	void contentToSettings();
+
 	bool validLine(const std::string &line) const;
 
 	std::string filename;
