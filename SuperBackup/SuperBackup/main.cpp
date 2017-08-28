@@ -1,6 +1,7 @@
 #include "stdio.h"
 #include "SettingParser.h"
 #include "Settings.h"
+#include "DirectoryWatcher.h"
 
 #define CONFIG_PATH "config.cfg"
 
@@ -14,11 +15,14 @@ int main()
 	//@TODO: 2. Test for existing config file.
 	//@TODO: 3. Function for extracting parsed data into Setting structures.
 
-	printf("Hello, World!");
+	printf("Hello, World!\n");
 
 	SettingParser settingParser(CONFIG_PATH);
 
 	Settings settingsCollection = settingParser.GetSettings();
+
+	DirectoryWatcher watcher("C:\\Users\\Oskar\\Documents\\GitHub\\SuperBackup\\SuperBackup\\SuperBackup");
+	watcher.watch();
 
 	return 0;
 }
