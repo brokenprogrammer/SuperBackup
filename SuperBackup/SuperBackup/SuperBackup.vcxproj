@@ -111,12 +111,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BackupManager.cpp" />
+    <ClCompile Include="DirectoryWatcher.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Setting.cpp" />
     <ClCompile Include="SettingParser.cpp" />
     <ClCompile Include="Settings.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BackupManager.h" />
+    <ClInclude Include="DirectoryWatcher.h" />
     <ClInclude Include="Setting.h" />
     <ClInclude Include="SettingParser.h" />
     <ClInclude Include="Settings.h" />

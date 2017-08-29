@@ -5,6 +5,11 @@
 
 #define CONFIG_PATH "config.cfg"
 
+void onFileChange()
+{
+
+}
+
 int main()
 {
 	// Read in directories to watch, read in files to watch.
@@ -21,7 +26,7 @@ int main()
 
 	Settings settingsCollection = settingParser.GetSettings();
 
-	DirectoryWatcher watcher("C:\\Users\\Oskar\\Documents\\GitHub\\SuperBackup\\SuperBackup\\SuperBackup");
+	DirectoryWatcher watcher("C:\\Users\\Oskar\\Documents\\GitHub\\SuperBackup\\SuperBackup\\SuperBackup", onFileChange);
 	watcher.watch();
 
 	return 0;

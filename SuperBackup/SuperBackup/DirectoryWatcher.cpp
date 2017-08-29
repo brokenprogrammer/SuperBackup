@@ -3,9 +3,10 @@
 #include <tchar.h>
 #include <iostream>
 
-DirectoryWatcher::DirectoryWatcher(const char* directory)
+DirectoryWatcher::DirectoryWatcher(const char* directory, void(*action)())
 {
 	this->directory = directory;
+	this->action = action;
 }
 
 DirectoryWatcher::~DirectoryWatcher()
@@ -68,6 +69,7 @@ void DirectoryWatcher::watch()
 		case WAIT_OBJECT_0:
 			// File was created, renamed or deleted.
 			std::cout << "File was created, renamed or deleted." << std::endl;
+			action();
 			break;
 		case WAIT_OBJECT_0 + 1:
 			// Directory was created, renamed or deleted.

@@ -1,3 +1,8 @@
-﻿  main.cpp
-  SuperBackup.vcxproj -> C:\Users\Oskar\source\repos\SuperBackup\Debug\SuperBackup.exe
-  SuperBackup.vcxproj -> C:\Users\Oskar\source\repos\SuperBackup\Debug\SuperBackup.pdb (Partial PDB)
+﻿  Settings.cpp
+  SettingParser.cpp
+  Setting.cpp
+  main.cpp
+  DirectoryWatcher.cpp
+  Generating Code...
+  SuperBackup.vcxproj -> C:\Users\Oskar\Documents\Github\SuperBackup\SuperBackup\Debug\SuperBackup.exe
+  SuperBackup.vcxproj -> C:\Users\Oskar\Documents\Github\SuperBackup\SuperBackup\Debug\SuperBackup.pdb (Partial PDB)
