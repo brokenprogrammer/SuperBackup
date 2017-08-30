@@ -1,8 +1,5 @@
-﻿  Settings.cpp
-  SettingParser.cpp
-  Setting.cpp
-  main.cpp
-  DirectoryWatcher.cpp
-  Generating Code...
+﻿  BackupManager.cpp
+c:\users\oskar\documents\github\superbackup\superbackup\superbackup\backupmanager.cpp(45): warning C4101: 'length_of_arg': unreferenced local variable
+c:\users\oskar\documents\github\superbackup\superbackup\superbackup\backupmanager.cpp(43): warning C4101: 'filesize': unreferenced local variable
   SuperBackup.vcxproj -> C:\Users\Oskar\Documents\Github\SuperBackup\SuperBackup\Debug\SuperBackup.exe
   SuperBackup.vcxproj -> C:\Users\Oskar\Documents\Github\SuperBackup\SuperBackup\Debug\SuperBackup.pdb (Partial PDB)

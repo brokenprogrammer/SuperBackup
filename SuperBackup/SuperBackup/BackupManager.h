@@ -14,6 +14,8 @@ private:
 
 	void createDirectory(const char* directory);
 
+	void checkAllFiles();
+
 	bool directoryExist(const char* directory);
 	bool fileExist(const char* filename);
 

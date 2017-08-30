@@ -2,6 +2,7 @@
 #include "SettingParser.h"
 #include "Settings.h"
 #include "DirectoryWatcher.h"
+#include "BackupManager.h"
 
 #define CONFIG_PATH "config.cfg"
 
@@ -26,8 +27,10 @@ int main()
 
 	Settings settingsCollection = settingParser.GetSettings();
 
-	DirectoryWatcher watcher("C:\\Users\\Oskar\\Documents\\GitHub\\SuperBackup\\SuperBackup\\SuperBackup", onFileChange);
-	watcher.watch();
+	BackupManager bm("C:\\Users\\Oskar\\Documents\\GitHub\\SuperBackup\\SuperBackup\\SuperBackup");
+
+	//DirectoryWatcher watcher("C:\\Users\\Oskar\\Documents\\GitHub\\SuperBackup\\SuperBackup\\SuperBackup", onFileChange);
+	//watcher.watch();
 
 	return 0;
 }
