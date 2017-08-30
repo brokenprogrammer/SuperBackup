@@ -1,0 +1,16 @@
+package me.oskarmendel.superbackup;
+
+public class SuperBackup {
+
+	private static final String CONFIG_PATH = "config.cfg";
+	
+	public static void main(String[] args) {
+		
+		// 1. Read in directories to watch, read in files to watch.
+		// 2. Sit and watch directories, when save occurs, store the old file
+		// 3. Back to watching directories.
+		
+		System.out.println("Hello World!");
+	}
+
+}
