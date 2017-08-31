@@ -1,5 +1,7 @@
 package me.oskarmendel.superbackup;
 
+import me.oskarmendel.superbackup.setting.SettingParser;
+
 public class SuperBackup {
 
 	private static final String CONFIG_PATH = "config.cfg";
@@ -11,6 +13,8 @@ public class SuperBackup {
 		// 3. Back to watching directories.
 		
 		System.out.println("Hello World!");
+		
+		SettingParser parser = new SettingParser(CONFIG_PATH);
 	}
 
 }
