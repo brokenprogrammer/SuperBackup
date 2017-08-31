@@ -5,6 +5,9 @@
 #include <strsafe.h>
 #include <iostream>
 #include <fstream>
+#include <chrono>
+#include <ctime>
+
 
 BackupManager::BackupManager(const char* directory)
 {
@@ -25,6 +28,11 @@ BackupManager::BackupManager(const char* directory)
 		createDirectory(workingDirectory);
 	}
 
+	if (fileExist("main.cpp"))
+	{
+		std::cout << "main exist" << std::endl;
+	}
+
 	//checkAllFiles();
 }
 
@@ -35,10 +43,47 @@ BackupManager::~BackupManager()
 
 //TODO: Refactor and use only source parameter since the name will be the same and
 //TODO: the destination folder will be a member variable.
-void BackupManager::copyFile(const char* source, const char *destination)
+void BackupManager::copyFile(const char* source)
 {
-	std::ifstream src(source ,std::ios::binary);
-	std::ofstream dst(destination, std::ios::binary);
+	// Getting current time.
+	auto now = std::chrono::system_clock::now();
+	auto now_c = std::chrono::system_clock::to_time_t(now);
+	struct tm newtime;
+	errno_t err;
+
+	err = localtime_s(&newtime, &now_c);
+
+	if (err)
+	{
+		//Throw some error.
+	}
+
+	// Building current time string.
+	std::string currentTime = std::to_string(newtime.tm_year + 1900);
+	currentTime.append("-");
+	currentTime.append(std::to_string(newtime.tm_mon+1));
+	currentTime.append("-");
+	currentTime.append(std::to_string(newtime.tm_mday));
+	currentTime.append("-");
+	currentTime.append(std::to_string(newtime.tm_hour));
+	currentTime.append("-");
+	currentTime.append(std::to_string(newtime.tm_min));
+	currentTime.append("-");
+	currentTime.append(std::to_string(newtime.tm_sec));
+	currentTime.append("_");
+
+	// Building destination string.
+	std::string dest = workingDirectory;
+	dest.append("/");
+	dest.append(currentTime);
+	dest.append(source);
+
+	std::cout << source << std::endl;
+	std::cout << dest << std::endl;
+
+	// Copying file to destination.
+	std::ifstream src(source, std::ios::binary);
+	std::ofstream dst(dest, std::ios::binary);
 
 	dst << src.rdbuf();
 }
@@ -76,14 +121,13 @@ void BackupManager::checkAllFiles()
 	do
 	{
 		// Use found file and its data.
-		std::cout << ffd.cFileName << std::endl;
 		std::string filepath = workingDirectory;
 		filepath.append("/");
 		filepath.append(ffd.cFileName);
 
 		if (!fileExist(filepath.c_str())) // If file is not present, make a copy.
 		{
-			copyFile(ffd.cFileName, filepath.c_str());
+			copyFile(ffd.cFileName);
 			//std::cout << "File " << ffd.cFileName << " doesn't exist." << std::endl;
 		}
 		else if (false) // Else check if the present file is older than current file.
@@ -118,6 +162,7 @@ bool BackupManager::directoryExist(const char * directory)
 	}
 }
 
+//TODO: Make this function work on already stored files with date infront.
 bool BackupManager::fileExist(const char * filename)
 {
 	std::string path = filename;

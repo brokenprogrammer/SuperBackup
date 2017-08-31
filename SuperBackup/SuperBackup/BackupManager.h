@@ -8,7 +8,7 @@ public:
 	BackupManager(const char* directory);
 	~BackupManager();
 
-	void copyFile(const char* source, const char *destination);
+	void copyFile(const char* source);
 
 private:
 	void createDirectory(const char* directory);
