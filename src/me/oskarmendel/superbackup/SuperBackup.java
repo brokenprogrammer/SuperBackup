@@ -1,6 +1,7 @@
 package me.oskarmendel.superbackup;
 
 import me.oskarmendel.superbackup.backup.BackupManager;
+import me.oskarmendel.superbackup.backup.DirectoryWatcher;
 import me.oskarmendel.superbackup.setting.SettingParser;
 
 public class SuperBackup {
@@ -17,6 +18,9 @@ public class SuperBackup {
 		
 		SettingParser parser = new SettingParser(CONFIG_PATH);
 		BackupManager bm = new BackupManager("C:\\Users\\Oskar\\Documents\\GitHub\\SuperBackup");
+		
+		DirectoryWatcher watcher = new DirectoryWatcher("", bm);
+		watcher.watch();
 	}
 
 }

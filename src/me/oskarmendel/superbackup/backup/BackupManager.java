@@ -34,14 +34,15 @@ public class BackupManager {
 			LocalDateTime now = LocalDateTime.now();
 			
 			File dest = new File(this.workingDirectory + "/" + formatter.format(now) + "-" + file.getName());
-			
-			Files.copy(file.toPath(), dest.toPath());
+			if (!dest.exists()) {
+				Files.copy(file.toPath(), dest.toPath());
+			}
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void checkAllFiles() {
+	private void checkAllFiles() {
 		File folder = new File(this.directory);
 		File workingDir = new File(this.workingDirectory);
 		
