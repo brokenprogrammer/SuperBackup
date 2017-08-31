@@ -9,16 +9,23 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * SettingParser that parses a configurations file for Settings.
  * 
- * @author Oskar
- *
+ * @author Oskar Mendel
+ * @version 0.00.00
  */
 public class SettingParser {
 	
-	private String filename;
-	private Map<String, ArrayList<String>> contents;
-	private SettingContainer settings;
+	private String filename;						  // Path for configurations file.
+	private Map<String, ArrayList<String>> contents;  // Map containing all the configurations.
+	private SettingContainer settings;				  // SettingsContainer to store all parsed Settings in.
 	
+	/**
+	 * Creates a new SettingParser using the path to the specified
+	 * configurations file and parses the content.
+	 * 
+	 * @param filename - Path to configurations file.
+	 */
 	public SettingParser(String filename) {
 		this.filename = filename;
 		this.contents = new HashMap<String, ArrayList<String>>();
@@ -27,10 +34,24 @@ public class SettingParser {
 		contentToSettings();
 	}
 	
+	/**
+	 * Checks if the specified key exist within the parsed content.
+	 * 
+	 * @param key - Key to check if exists.
+	 * 
+	 * @return - True if the specified key exists; False otherwise.
+	 */
 	public boolean keyExists(String key) {
 		return contents.containsKey(key);
 	}
 	
+	/**
+	 * Returns the list of values for the specified Settings key.
+	 * 
+	 * @param key - Key to retrieve values for.
+	 * 
+	 * @return - ArrayList of values for the specified key.
+	 */
 	ArrayList<String> getKey(String key) {
 		if (!contents.containsKey(key)) {
 			throw new IllegalArgumentException("Specified key does not exist.");
@@ -43,6 +64,9 @@ public class SettingParser {
 		return settings;
 	}
 	
+	/**
+	 * Parses the content of the configurations file for this SettingParser.
+	 */
 	private void parseContent() {
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filename)));
@@ -72,6 +96,9 @@ public class SettingParser {
 		}
 	}
 	
+	/**
+	 * Converts the map of parsed content into a SettingContainer.
+	 */
 	private void contentToSettings() {
 		for (String key : contents.keySet()) {
 			for (String value : contents.get(key)) {
@@ -88,6 +115,13 @@ public class SettingParser {
 		}
 	}
 	
+	/**
+	 * Checks if the specified parsed line is a valid line.
+	 * 
+	 * @param line - Line to check if its valid.
+	 * 
+	 * @return True if the line is a valid line; False otherwise.
+	 */
 	private boolean validLine(String line) {
 		if (line.charAt(0) != '#' || line.charAt(0) != ';') {
 			if (line.contains("=")) {

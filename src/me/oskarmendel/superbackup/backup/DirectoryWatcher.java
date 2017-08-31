@@ -9,16 +9,33 @@ import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 
+/**
+ * DirectoryWatcher watches a specified directory for 
+ * changes and uses its BackupManager to back up files on change.
+ * 
+ * @author Oskar Mendel
+ * @version 0.00.00
+ */
 public class DirectoryWatcher {
 
 	private String directory;
 	BackupManager bm;
 	
+	/**
+	 * Creates a new DirectoryWatcher to watch the specified directory
+	 * and use the specified BackupManager.
+	 * 
+	 * @param directory - Directory to watch.
+	 * @param bm - BackupManager to handle copying of files.
+	 */
 	public DirectoryWatcher(String directory, BackupManager bm) {
 		this.directory = directory;
 		this.bm = bm;
 	}
 	
+	/**
+	 * Initiates the process of watching a directory for changes.
+	 */
 	public void watch() {
 		try {
 			WatchService watcher = FileSystems.getDefault().newWatchService();

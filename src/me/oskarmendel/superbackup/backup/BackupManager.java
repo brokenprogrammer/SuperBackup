@@ -9,15 +9,22 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 /**
+ * BackupManager manages backups of files.
  * 
- * @author Oskar
- *
+ * @author Oskar Mendel
+ * @version 0.00.00
  */
 public class BackupManager {
 	
 	private String directory;
 	private String workingDirectory;
 	
+	/**
+	 * Creates a new BackupManager to be backing up the specified
+	 * directory.
+	 * 
+	 * @param directory - Path to directory.
+	 */
 	public BackupManager(String directory) {
 		this.directory = directory;
 		
@@ -28,6 +35,11 @@ public class BackupManager {
 		checkAllFiles();
 	}
 	
+	/**
+	 * Creates a copy of the specified file in the workingDirectory of this BackupManager.
+	 * 
+	 * @param file - File to copy.
+	 */
 	public void copyFile(File file) {
 		try {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
@@ -42,6 +54,11 @@ public class BackupManager {
 		}
 	}
 	
+	/**
+	 * Performs a check on all files within the specified directory and 
+	 * creates copies of the files that either do not have a backup or 
+	 * have an out dated backup.
+	 */
 	private void checkAllFiles() {
 		File folder = new File(this.directory);
 		File workingDir = new File(this.workingDirectory);
