@@ -8,10 +8,9 @@ public:
 	BackupManager(const char* directory);
 	~BackupManager();
 
-	void copyFile(const char* filename);
+	void copyFile(const char* source, const char *destination);
 
 private:
-
 	void createDirectory(const char* directory);
 
 	void checkAllFiles();
@@ -20,6 +19,7 @@ private:
 	bool fileExist(const char* filename);
 
 	const char* directory;
+	const char* workingDirectory;
 };
 
 #endif
