@@ -22,6 +22,7 @@ public class SettingParser {
 	public SettingParser(String filename) {
 		this.filename = filename;
 		this.contents = new HashMap<String, ArrayList<String>>();
+		this.settings = new SettingContainer();
 		parseContent();
 		contentToSettings();
 	}
