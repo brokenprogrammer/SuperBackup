@@ -32,6 +32,7 @@ import me.oskarmendel.superbackup.setting.SettingParser;
  * 
  * @author Oskar Mendel
  * @version 0.00.00
+ * @name SuperBackup.java
  */
 public class SuperBackup {
 

@@ -36,6 +36,7 @@ import java.util.Comparator;
  * 
  * @author Oskar Mendel
  * @version 0.00.00
+ * @name BackupManager.java
  */
 public class BackupManager {
 	

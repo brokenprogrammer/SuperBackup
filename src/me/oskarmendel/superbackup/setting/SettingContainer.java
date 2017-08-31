@@ -31,6 +31,7 @@ import java.util.ArrayList;
  * 
  * @author Oskar Mendel
  * @version 0.00.00
+ * @name SettingContainer.java
  */
 public class SettingContainer {
 

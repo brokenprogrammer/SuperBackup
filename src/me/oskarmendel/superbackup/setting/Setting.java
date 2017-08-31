@@ -29,6 +29,7 @@ package me.oskarmendel.superbackup.setting;
  * 
  * @author Oskar Mendel
  * @version 0.00.00
+ * @name Setting.java
  */
 public class Setting {
 	

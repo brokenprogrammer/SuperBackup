@@ -38,6 +38,7 @@ import java.nio.file.WatchService;
  * 
  * @author Oskar Mendel
  * @version 0.00.00
+ * @name DirectoryWatcher.java
  */
 public class DirectoryWatcher {
 
