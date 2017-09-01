@@ -32,6 +32,10 @@ import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 
+import me.oskarmendel.superbackup.setting.Setting;
+import me.oskarmendel.superbackup.setting.SettingContainer;
+import me.oskarmendel.superbackup.setting.SettingType;
+
 /**
  * DirectoryWatcher watches a specified directory for 
  * changes and uses its BackupManager to back up files on change.
@@ -43,7 +47,8 @@ import java.nio.file.WatchService;
 public class DirectoryWatcher {
 
 	private String directory;
-	BackupManager bm;
+	private SettingContainer settings;
+	private BackupManager bm;
 	
 	/**
 	 * Creates a new DirectoryWatcher to watch the specified directory
@@ -52,9 +57,12 @@ public class DirectoryWatcher {
 	 * @param directory - Directory to watch.
 	 * @param bm - BackupManager to handle copying of files.
 	 */
-	public DirectoryWatcher(String directory, BackupManager bm) {
+	public DirectoryWatcher(String directory, SettingContainer settings, BackupManager bm) {
 		this.directory = directory;
+		this.settings = settings;
 		this.bm = bm;
+		
+		System.out.println(settings.getSettings().size());
 	}
 	
 	/**
@@ -88,15 +96,32 @@ public class DirectoryWatcher {
 			        Path filename = ev.context();
 			        
 			        File targetFile = filename.toFile();
-			        if (targetFile.isFile()) {
-				        if (kind == StandardWatchEventKinds.OVERFLOW) {
-				        	
-				        } else if (kind == StandardWatchEventKinds.ENTRY_CREATE) {
-				        	bm.copyFile(targetFile);
-				        } else if (kind == StandardWatchEventKinds.ENTRY_MODIFY) {
-				        	bm.copyFile(targetFile);
-				        } else if (kind == StandardWatchEventKinds.ENTRY_DELETE) {
-				        	
+			        boolean shouldBeBackedUp = false;
+			        int delim = targetFile.getAbsolutePath().lastIndexOf('.');
+			        
+			        if (delim != -1) {
+				        String fileType = targetFile.getAbsolutePath().substring(delim);
+				        
+				        for (Setting s : settings.getSettings()) {
+				        	if (s.getType() == SettingType.FILETPYE) {
+				        		if (s.getValue().equals(fileType)) {
+				        			shouldBeBackedUp = true;
+				        		}
+				        	}
+				        }
+			        }
+			        
+			        if (shouldBeBackedUp == true) {
+				        if (targetFile.isFile()) {
+					        if (kind == StandardWatchEventKinds.OVERFLOW) {
+					        	
+					        } else if (kind == StandardWatchEventKinds.ENTRY_CREATE) {
+					        	bm.copyFile(targetFile);
+					        } else if (kind == StandardWatchEventKinds.ENTRY_MODIFY) {
+					        	bm.copyFile(targetFile);
+					        } else if (kind == StandardWatchEventKinds.ENTRY_DELETE) {
+					        	
+					        }
 				        }
 			        }
 				}

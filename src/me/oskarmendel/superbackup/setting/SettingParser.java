@@ -76,7 +76,7 @@ public class SettingParser {
 	 * 
 	 * @return - ArrayList of values for the specified key.
 	 */
-	ArrayList<String> getKey(String key) {
+	public ArrayList<String> getKey(String key) {
 		if (!contents.containsKey(key)) {
 			throw new IllegalArgumentException("Specified key does not exist.");
 		}
@@ -84,7 +84,12 @@ public class SettingParser {
 		return contents.get(key);
 	}
 	
-	SettingContainer getSettings() {
+	/**
+	 * Getter for the SettingContainer of the parsed Settings.
+	 * 
+	 * @return - SettingsContainer with the parsed Settings.
+	 */
+	public SettingContainer getSettings() {
 		return settings;
 	}
 	

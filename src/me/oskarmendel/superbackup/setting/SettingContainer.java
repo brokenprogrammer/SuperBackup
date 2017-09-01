@@ -69,6 +69,15 @@ public class SettingContainer {
 	}
 	
 	/**
+	 * Returns the ArrayList of settings.
+	 * 
+	 * @return - ArrayList of settings.
+	 */
+	public ArrayList<Setting> getSettings() {
+		return this.settingList;
+	}
+	
+	/**
 	 * Clears the SettingContainer of all Settings.
 	 */
 	public void clearSettings() {

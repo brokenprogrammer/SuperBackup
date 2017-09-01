@@ -76,4 +76,22 @@ public class Setting {
 		
 		return false;
 	}
+	
+	/**
+	 * Getter for the SettingType of this Setting.
+	 * 
+	 * @return - The SettingType of this Setting.
+	 */
+	public SettingType getType() {
+		return this.type;
+	}
+	
+	/**
+	 * Getter for the Value of this Setting.
+	 * 
+	 * @return - The Value of this Setting.
+	 */
+	public String getValue() {
+		return this.value;
+	}
 }
