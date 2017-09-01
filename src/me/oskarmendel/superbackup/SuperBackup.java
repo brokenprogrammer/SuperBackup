@@ -23,9 +23,13 @@
  */
 package me.oskarmendel.superbackup;
 
+import java.awt.AWTException;
+import java.net.MalformedURLException;
+
 import me.oskarmendel.superbackup.backup.BackupManager;
 import me.oskarmendel.superbackup.backup.DirectoryWatcher;
 import me.oskarmendel.superbackup.setting.SettingParser;
+import me.oskarmendel.superbackup.ui.SystemTrayUI;
 
 /**
  * Main entry point of the application.
@@ -40,11 +44,21 @@ public class SuperBackup {
 	private static final String CONFIG_PATH = "config.cfg";
 	
 	public static void main(String[] args) {
+		try {
+			SystemTrayUI ui = new SystemTrayUI();
+		} catch (AWTException e) {
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		
 		SettingParser parser = new SettingParser(CONFIG_PATH);
 		BackupManager bm = new BackupManager("C:\\Users\\Oskar\\Documents\\GitHub\\SuperBackup");
 		
 		DirectoryWatcher watcher = new DirectoryWatcher("", bm);
 		watcher.watch();
+		
+		//TODO: Make use of settings within DirectoryWatcher.
+		//TODO: Make recursive check of subdirectories in watched directory.
 	}
-
 }
