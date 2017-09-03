@@ -136,6 +136,17 @@ public class DirectoryWatcher {
 				        } else if (kind == StandardWatchEventKinds.ENTRY_DELETE) {
 				        }
 			        }
+			        
+			        if (targetFile.isDirectory()) {
+			        	if (kind == StandardWatchEventKinds.ENTRY_CREATE) {
+			        		bm.createDirectory(targetFile);
+			        		Path p = FileSystems.getDefault().getPath(targetFile.getAbsolutePath());
+			        		System.out.println(p);
+			        		p.register(watcher, StandardWatchEventKinds.ENTRY_CREATE,
+											    StandardWatchEventKinds.ENTRY_MODIFY,
+											    StandardWatchEventKinds.ENTRY_DELETE);
+			        	}
+			        }
 				}
 				
 				boolean valid = k.reset();

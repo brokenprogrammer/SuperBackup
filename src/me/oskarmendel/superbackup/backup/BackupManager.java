@@ -92,6 +92,18 @@ public class BackupManager {
 		}
 	}
 	
+	public void createDirectory(File directory) {
+		int delim = directory.getAbsolutePath().lastIndexOf(workingDirectory);
+		String path = directory.getAbsolutePath().substring(delim);
+		delim = path.lastIndexOf(directory.getName());
+		path = path.substring(0, delim);
+		
+		File dir = new File(path + directory.getName());
+		if (!dir.exists()) {
+			dir.mkdirs();
+		}
+	}
+	
 	/**
 	 * Performs a check on all files within the specified directory and 
 	 * creates copies of the files that either do not have a backup or 
