@@ -145,6 +145,10 @@ public class DirectoryWatcher {
 			        		p.register(watcher, StandardWatchEventKinds.ENTRY_CREATE,
 											    StandardWatchEventKinds.ENTRY_MODIFY,
 											    StandardWatchEventKinds.ENTRY_DELETE);
+			        	} else if (kind == StandardWatchEventKinds.ENTRY_MODIFY) {
+			        		System.out.println(targetFile.getName() + " was modified.");
+			        	} else if (kind == StandardWatchEventKinds.ENTRY_DELETE) {
+			        		
 			        	}
 			        }
 				}
