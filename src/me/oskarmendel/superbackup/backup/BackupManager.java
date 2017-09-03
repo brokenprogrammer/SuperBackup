@@ -55,6 +55,10 @@ public class BackupManager {
 		int lastPath = directory.lastIndexOf('\\');
 		
 		this.workingDirectory = directory.substring(lastPath+1);
+		File workingDir = new File(this.workingDirectory);
+		if (!workingDir.exists()) {
+			workingDir.mkdirs();
+		}
 		
 		checkAllFiles(this.directory);
 	}
@@ -69,12 +73,10 @@ public class BackupManager {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
 			LocalDateTime now = LocalDateTime.now();
 			
-			//System.out.println(file.getAbsolutePath());
 			int delim = file.getAbsolutePath().lastIndexOf(workingDirectory);
 			String path = file.getAbsolutePath().substring(delim);
 			delim = path.lastIndexOf(file.getName());
 			path = path.substring(0, delim);
-			System.out.println(path);
 			
 			File directory = new File(path);
 			if (!directory.exists()) {
@@ -85,8 +87,6 @@ public class BackupManager {
 			if (!dest.exists()) {
 				Files.copy(file.toPath(), dest.toPath());
 			}
-			
-			System.out.println("Done!");
 		} catch(IOException e) {
 			e.printStackTrace();
 		}

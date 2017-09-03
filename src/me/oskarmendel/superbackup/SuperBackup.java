@@ -53,12 +53,10 @@ public class SuperBackup {
 		}
 		
 		SettingParser parser = new SettingParser(CONFIG_PATH);
-		BackupManager bm = new BackupManager("C:\\Users\\Oskar\\Documents\\GitHub\\SuperBackup");
-		System.out.println(parser.getSettings().getSettings().size());
-		DirectoryWatcher watcher = new DirectoryWatcher("", parser.getSettings(), bm);
+		BackupManager bm = new BackupManager("C:\\Users\\Oskar\\Documents\\GitHub\\testingdir");
+		DirectoryWatcher watcher = new DirectoryWatcher("C:\\Users\\Oskar\\Documents\\GitHub\\testingdir", parser.getSettings(), bm);
 		watcher.watch();
 		
-		//TODO: Make use of settings within DirectoryWatcher.
 		//TODO: Make recursive check of subdirectories in watched directory.
 	}
 }

@@ -65,8 +65,6 @@ public class DirectoryWatcher {
 		this.directory = directory;
 		this.settings = settings;
 		this.bm = bm;
-		
-		System.out.println(settings.getSettings().size());
 	}
 	
 	/**
@@ -85,12 +83,9 @@ public class DirectoryWatcher {
 			Files.walkFileTree(dir, new SimpleFileVisitor<Path>() {
 				@Override
 				public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
-					if (!dir.startsWith("SuperBackup")) {
-						System.out.println(dir);
-						dir.register(watcher, StandardWatchEventKinds.ENTRY_CREATE,
-											  StandardWatchEventKinds.ENTRY_MODIFY,
-											  StandardWatchEventKinds.ENTRY_DELETE);
-					}
+					dir.register(watcher, StandardWatchEventKinds.ENTRY_CREATE,
+										  StandardWatchEventKinds.ENTRY_MODIFY,
+										  StandardWatchEventKinds.ENTRY_DELETE);
 					return FileVisitResult.CONTINUE;
 				}
 			});
@@ -105,13 +100,9 @@ public class DirectoryWatcher {
 					return;
 				}
 				
-				System.out.println("New Loop");
-				
 				for (WatchEvent<?> event : k.pollEvents()) {
 					// Get kind of event.
 					WatchEvent.Kind<?> kind = event.kind();
-					
-					System.out.println("polling events.");
 					
 					@SuppressWarnings("unchecked")
 					WatchEvent<Path> ev = (WatchEvent<Path>)event;
@@ -147,7 +138,7 @@ public class DirectoryWatcher {
 			        }
 				}
 				
-				boolean valid = key.reset();
+				boolean valid = k.reset();
 				if (!valid) {
 					// Throw some error for breaking.
 					break;
