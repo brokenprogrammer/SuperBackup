@@ -56,7 +56,7 @@ public class BackupManager {
 		
 		this.workingDirectory = directory.substring(lastPath+1);
 		
-		checkAllFiles();
+		checkAllFiles(this.directory);
 	}
 	
 	/**
@@ -69,10 +69,24 @@ public class BackupManager {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
 			LocalDateTime now = LocalDateTime.now();
 			
-			File dest = new File(this.workingDirectory + "/" + formatter.format(now) + "-" + file.getName());
+			//System.out.println(file.getAbsolutePath());
+			int delim = file.getAbsolutePath().lastIndexOf(workingDirectory);
+			String path = file.getAbsolutePath().substring(delim);
+			delim = path.lastIndexOf(file.getName());
+			path = path.substring(0, delim);
+			System.out.println(path);
+			
+			File directory = new File(path);
+			if (!directory.exists()) {
+				directory.mkdirs();
+			}
+			
+			File dest = new File(path + formatter.format(now) + "-" + file.getName());
 			if (!dest.exists()) {
 				Files.copy(file.toPath(), dest.toPath());
 			}
+			
+			System.out.println("Done!");
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -83,8 +97,8 @@ public class BackupManager {
 	 * creates copies of the files that either do not have a backup or 
 	 * have an out dated backup.
 	 */
-	private void checkAllFiles() {
-		File folder = new File(this.directory);
+	private void checkAllFiles(String directory) {
+		File folder = new File(directory);
 		File workingDir = new File(this.workingDirectory);
 		
 		File[] files = folder.listFiles();
@@ -124,7 +138,29 @@ public class BackupManager {
 					// No backups exist so make one.
 					copyFile(f);
 				}
+			} else if (f.isDirectory()) {
+//				File[] q = f.listFiles();
+//				
+//				for (File eq : q) {
+//					System.out.println(eq.getName());
+//				}
+				//
+				//checkAllFiles(f.getPath());
+				//f.li
+				//
 			}
 		}
 	}
+	
+//	private void checkAllFiles(File directory) {
+//		if (!directory.isDirectory()) {
+//			return;
+//		}
+//		
+//		File[] files = directory.listFiles();
+//		
+//		for (File f : files) {
+//			
+//		}
+//	}
 }

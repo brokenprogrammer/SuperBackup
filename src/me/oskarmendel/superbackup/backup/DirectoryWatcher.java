@@ -26,11 +26,15 @@ package me.oskarmendel.superbackup.backup;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
 import java.nio.file.StandardWatchEventKinds;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
+import java.nio.file.attribute.BasicFileAttributes;
 
 import me.oskarmendel.superbackup.setting.Setting;
 import me.oskarmendel.superbackup.setting.SettingContainer;
@@ -77,6 +81,20 @@ public class DirectoryWatcher {
 												 StandardWatchEventKinds.ENTRY_MODIFY,
 												 StandardWatchEventKinds.ENTRY_DELETE);
 			
+			// Register all sub directories.
+			Files.walkFileTree(dir, new SimpleFileVisitor<Path>() {
+				@Override
+				public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+					if (!dir.startsWith("SuperBackup")) {
+						System.out.println(dir);
+						dir.register(watcher, StandardWatchEventKinds.ENTRY_CREATE,
+											  StandardWatchEventKinds.ENTRY_MODIFY,
+											  StandardWatchEventKinds.ENTRY_DELETE);
+					}
+					return FileVisitResult.CONTINUE;
+				}
+			});
+			
 			while (true) {
 				WatchKey k;
 				try {
@@ -87,15 +105,22 @@ public class DirectoryWatcher {
 					return;
 				}
 				
+				System.out.println("New Loop");
+				
 				for (WatchEvent<?> event : k.pollEvents()) {
 					// Get kind of event.
 					WatchEvent.Kind<?> kind = event.kind();
 					
+					System.out.println("polling events.");
+					
 					@SuppressWarnings("unchecked")
 					WatchEvent<Path> ev = (WatchEvent<Path>)event;
+					
+					Path curDir = (Path)k.watchable();
 			        Path filename = ev.context();
+			        Path fullPath = curDir.resolve(filename);
 			        
-			        File targetFile = filename.toFile();
+			        File targetFile = fullPath.toFile();
 			        boolean shouldBeBackedUp = false;
 			        int delim = targetFile.getAbsolutePath().lastIndexOf('.');
 			        
@@ -112,16 +137,12 @@ public class DirectoryWatcher {
 			        }
 			        
 			        if (shouldBeBackedUp == true) {
-				        if (targetFile.isFile()) {
-					        if (kind == StandardWatchEventKinds.OVERFLOW) {
-					        	
-					        } else if (kind == StandardWatchEventKinds.ENTRY_CREATE) {
-					        	bm.copyFile(targetFile);
-					        } else if (kind == StandardWatchEventKinds.ENTRY_MODIFY) {
-					        	bm.copyFile(targetFile);
-					        } else if (kind == StandardWatchEventKinds.ENTRY_DELETE) {
-					        	
-					        }
+				        if (kind == StandardWatchEventKinds.OVERFLOW) {
+				        } else if (kind == StandardWatchEventKinds.ENTRY_CREATE) {
+				        	bm.copyFile(targetFile);
+				        } else if (kind == StandardWatchEventKinds.ENTRY_MODIFY) {
+				        	bm.copyFile(targetFile);
+				        } else if (kind == StandardWatchEventKinds.ENTRY_DELETE) {
 				        }
 			        }
 				}
